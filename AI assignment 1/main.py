@@ -42,8 +42,8 @@ def createScatterIndex():
 
 def calculateSigmaAboveMedian():
     stdLifeExpectancy = np.std(x)
-    medianLifeExpectancy = np.median(x)
-    sigmaAboveMedian = medianLifeExpectancy + stdLifeExpectancy
+    meanLifeExpectancy = np.mean(x)
+    sigmaAboveMedian = meanLifeExpectancy + stdLifeExpectancy
     return sigmaAboveMedian
 
 
