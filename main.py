@@ -1,5 +1,6 @@
 import pandas as pd
 from matplotlib import pyplot as plt
+import numpy as np
 
 
 def createCorrectGDPTable(year):
@@ -16,25 +17,25 @@ def createCorrectLifeExpectancy(year):
 def scatterPlot():
     global row
     for row in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").columns):
-        plt.scatter(x, y)
-        print(type(x))
+        plt.scatter(x, y, color="blue", s =15)
     giveScatterPlotName()
+    # create the color here, if the value is higher than the standard, give it another color
 
 
 def giveScatterPlotName():
     global i, row
     for i, row in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").iterrows()):
-        plt.annotate(row[1][0], (x_values[i], y_values[i]))
+        plt.annotate(row[1][0], (lifeExp[i], GDPCap[i] ), ha= "center")
 
 
 def createScatterIndex():
-    global x_values, i, y_values
-    x_values = []
+    global lifeExp, i, GDPCap
+    lifeExp = []
     for i in x:
-        x_values.append(i)
-    y_values = []
+        lifeExp.append(i)
+    GDPCap = []
     for i in y:
-        y_values.append(i)
+        GDPCap.append(i)
 
 
 if __name__ == '__main__':
@@ -47,7 +48,7 @@ if __name__ == '__main__':
     createScatterIndex()
 
     scatterPlot()
-#    print(y_values)
+    #   print(y_values)
     plt.yscale("log")
     plt.xlabel('Life Expectancy')
     plt.ylabel('GDP per capita')
