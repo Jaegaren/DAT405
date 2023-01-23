@@ -44,6 +44,7 @@ def calculateSigmaAboveMedian():
     stdLifeExpectancy = np.std(x)
     meanLifeExpectancy = np.mean(x)
     sigmaAboveMedian = meanLifeExpectancy + stdLifeExpectancy
+    print(meanLifeExpectancy)
     return sigmaAboveMedian
 
 
