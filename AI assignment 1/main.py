@@ -4,22 +4,25 @@ import numpy as np
 
 
 def createCorrectGDPTable(year):
-    df = pd.read_csv('/Users/gille/Documents/GitHub/DAT405/files/gdp-per-capita-in-us-dollar-world-bank.csv')
+    df = pd.read_csv('/Users/jacobwesterberg/PycharmProjects/DAT405/files/gdp-per-capita-in-us-dollar-world-bank.csv')
     return df.loc[df["Year"] == year]
 
 
 def createCorrectLifeExpectancy(year):
-    df = pd.read_csv("/Users/gille/Documents/GitHub/DAT405/files/life-expectancy.csv")
+    df = pd.read_csv("/Users/jacobwesterberg/PycharmProjects/DAT405/files/life-expectancy.csv")
     df2 = df.dropna()
     return df2.loc[df["Year"] == year]
 
 
 def scatterPlot():
     global row
-    for row in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").columns):
-        plt.scatter(x, y, color="blue", s =15)
+    sigmaAboveMedian = calculateSigmaAboveMedian()
+    for i, row in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").columns):
+        if lifeExp[i] > sigmaAboveMedian:
+            plt.scatter(x, y, color="green", s =15)
+        else:
+            plt.scatter(x, y, color="blue", s=15)
     giveScatterPlotName()
-    # create the color here, if the value is higher than the standard, give it another color
 
 
 def giveScatterPlotName():
@@ -36,6 +39,12 @@ def createScatterIndex():
     GDPCap = []
     for i in y:
         GDPCap.append(i)
+
+def calculateSigmaAboveMedian():
+    stdLifeExpectancy = np.std(x)
+    medianLifeExpectancy = np.median(x)
+    sigmaAboveMedian = medianLifeExpectancy + stdLifeExpectancy
+    return sigmaAboveMedian
 
 
 if __name__ == '__main__':
