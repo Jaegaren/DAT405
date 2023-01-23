@@ -17,11 +17,11 @@ def createCorrectLifeExpectancy(year):
 def scatterPlot():
     global row
     sigmaAboveMedian = calculateSigmaAboveMedian()
-    for i, row in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").columns):
-        if lifeExp[i] > sigmaAboveMedian:
-            plt.scatter(x, y, color="green", s =15)
+    for index, col in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").iterrows()):
+        if lifeExp[index] > sigmaAboveMedian:
+            plt.scatter(x[index], y[index], color="green", s =10)
         else:
-            plt.scatter(x, y, color="blue", s=15)
+            plt.scatter(x[index], y[index], color="red", s=10)
     giveScatterPlotName()
 
 
