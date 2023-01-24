@@ -16,9 +16,9 @@ def createCorrectLifeExpectancy(year):
 
 def scatterPlot():
     global row
-    sigmaAboveMedian = calculateSigmaAboveMedian()
+    sigmaAboveMean = calculateSigmaAboveMean()
     for index, col in enumerate(correct_GDP_table.merge(correct_Life_Table, on="Entity").iterrows()):
-        if lifeExp[index] > sigmaAboveMedian:
+        if lifeExp[index] > sigmaAboveMean:
             plt.scatter(x[index], y[index], color="green", s =10)
         else:
             plt.scatter(x[index], y[index], color="red", s=10)
@@ -40,13 +40,11 @@ def createScatterIndex():
     for i in y:
         GDPCap.append(i)
 
-def calculateSigmaAboveMedian():
+def calculateSigmaAboveMean():
     stdLifeExpectancy = np.std(x)
     meanLifeExpectancy = np.mean(x)
-    sigmaAboveMedian = meanLifeExpectancy + stdLifeExpectancy
-    print(meanLifeExpectancy)
-    return sigmaAboveMedian
-
+    sigmaAboveMean = meanLifeExpectancy + stdLifeExpectancy
+    return sigmaAboveMean
 
 if __name__ == '__main__':
     correct_GDP_table = createCorrectGDPTable(2020)
