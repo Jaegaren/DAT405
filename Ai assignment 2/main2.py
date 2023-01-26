@@ -2,6 +2,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
 
 
 def readHouseTable():
@@ -9,13 +10,28 @@ def readHouseTable():
     return df
 
 
-def calculateAndPlotLineRegression(xValues, yValues):
+def calculateAndPlotLineRegression(xValues, yValues, returnPrints):
     xReg = xValues.values.reshape(-1, 1)  # These are made to reshape
     yReg = yValues.values.reshape(-1, 1)  # the data for LinearRegression()
     lineRegression = LinearRegression()
     lineRegression.fit(xReg, yReg)
     y_pred = lineRegression.predict(xReg)  # Prediction
     plt.plot(xValues, y_pred, color="red")
+    if returnPrints:
+        returnEquation(lineRegression)
+        calculateCoefficientOfDetermination(yReg, y_pred)
+
+
+def returnEquation(line):
+    print("The line intercept is %.2f" % line.intercept_)
+    print("The line coefficient is %.2f" % line.coef_)
+
+
+def calculateCoefficientOfDetermination(realValues, predictedValue):
+    print("The mean squared error intercept is %.2f" % mean_squared_error(realValues, predictedValue))
+    print("The rSquared error is %.2f" % r2_score(realValues, predictedValue))
+
+
 
 
 def annotateHousesToPandaIndex(indexTable, x, y):
@@ -39,5 +55,6 @@ if __name__ == '__main__':
 
     annotateHousesToPandaIndex(houseIndex, x, y)
     plt.scatter(x, y)
-    calculateAndPlotLineRegression(x, y)
-    #plt.show()
+    calculateAndPlotLineRegression(x, y, True)
+    plt.show()
+
