@@ -1,6 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 import numpy as np
+import seaborn as sns
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
@@ -32,8 +33,6 @@ def calculateCoefficientOfDetermination(realValues, predictedValue):
     print("The rSquared error is %.2f" % r2_score(realValues, predictedValue))
 
 
-
-
 def annotateHousesToPandaIndex(indexTable, x, y):
     for index, genericTable in indexTable.items():
         plt.annotate(indexTable[index] - 1, (x[index], y[index]))  # minus one to account for panda 0-indexed
@@ -43,18 +42,20 @@ def dropOutliers(table, dropHouses):
     return table.drop(dropHouses)
 
 
+def plotResidualGraph(table, x_col, y_col):
+    sns.residplot(data=table, x=x_col, y=y_col)
+
+
 if __name__ == '__main__':
     houseTable = readHouseTable()
     houseTable = dropOutliers(houseTable, [40, 45, 9, 24])
     x = houseTable.iloc[:, 1]  # Living_area index
     y = houseTable.iloc[:, 6]  # Selling_price index
-    houseIndex = houseTable.loc[:, "ID"]
 
     plt.xlabel("Living Area")
     plt.ylabel("Selling Price")
-
-    annotateHousesToPandaIndex(houseIndex, x, y)
-    plt.scatter(x, y)
-    calculateAndPlotLineRegression(x, y, True)
+    plotResidualGraph(houseTable, "Living_area", "Selling_price")
+    # annotateHousesToPandaIndex(houseIndex, x, y)
+    # plt.scatter(x, y)
+    # calculateAndPlotLineRegression(x, y, True)
     plt.show()
-
