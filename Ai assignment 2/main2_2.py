@@ -15,12 +15,15 @@ from sklearn.neighbors import KNeighborsClassifier
 
 if __name__ == '__main__':
     iris = load_iris()
-    X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=0)
-    logreg = LogisticRegression()
-    logreg.fit(X_train, y_train)
-    y_prediction = logreg.predict(X_test)
+    xTrain, xTest, yTrain, yTest = train_test_split(iris.data, iris.target, random_state=0)
 
-    conf_mat = confusion_matrix(y_test, y_prediction)
+    knn = KNeighborsClassifier(n_neighbors=3, weights='uniform')
+    knn.fit(xTrain, yTrain)
+
+
+    yPrediction = knn.predict(xTest)
+
+    conf_mat = confusion_matrix(yTest, yPrediction)
 
     print(conf_mat)
     #conf_mat.plot()
