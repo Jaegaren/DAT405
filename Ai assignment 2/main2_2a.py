@@ -9,20 +9,16 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 
-
-
-
-
 if __name__ == '__main__':
     iris = load_iris()
     xTrain, xTest, yTrain, yTest = train_test_split(iris.data, iris.target, random_state=0)
+    #xTrain, xTest, yTrain, yTest = train_test_split(iris.data, iris.target)
+
+    logisticRegression = LogisticRegression()
+    logisticRegression.fit(xTrain, yTrain)
 
 
-    knn = KNeighborsClassifier(n_neighbors=5, weights='uniform')
-    knn.fit(xTrain, yTrain)
-
-
-    yPrediction = knn.predict(xTest)
+    yPrediction = logisticRegression.predict(xTest)
 
     confusionMatrix = confusion_matrix(yTest, yPrediction)
 
