@@ -17,15 +17,16 @@ if __name__ == '__main__':
     iris = load_iris()
     xTrain, xTest, yTrain, yTest = train_test_split(iris.data, iris.target, random_state=0)
 
+
     knn = KNeighborsClassifier(n_neighbors=3, weights='uniform')
     knn.fit(xTrain, yTrain)
 
 
     yPrediction = knn.predict(xTest)
 
-    conf_mat = confusion_matrix(yTest, yPrediction)
+    confusion_matrix = confusion_matrix(yTest, yPrediction)
 
-    print(conf_mat)
+    print(confusion_matrix)
     #conf_mat.plot()
     #plt.show()
 
