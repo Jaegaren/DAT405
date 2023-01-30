@@ -1,6 +1,6 @@
+
 import pandas as pd
 from matplotlib import pyplot as plt
-import numpy as np
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
@@ -12,8 +12,8 @@ def readHouseTable():
 
 
 def calculateAndPlotLineRegression(xValues, yValues, returnPrints):
-    xReg = xValues.values.reshape(-1, 1)  # These are made to reshape
-    yReg = yValues.values.reshape(-1, 1)  # the data for LinearRegression()
+    xReg = xValues.values.reshape(-1, 1)  # Reshapes into a one matrix with one colum for
+    yReg = yValues.values.reshape(-1, 1)  # calculations in data for LinearRegression()
     lineRegression = LinearRegression()
     lineRegression.fit(xReg, yReg)
     y_pred = lineRegression.predict(xReg)  # Prediction
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     plt.xlabel("Living Area")
     plt.ylabel("Selling Price")
     plotResidualGraph(houseTable, "Living_area", "Selling_price")
+    # plotResidualGraph(houseTable, "Living_area", "Selling_price")
     # annotateHousesToPandaIndex(houseIndex, x, y)
     # plt.scatter(x, y)
     # calculateAndPlotLineRegression(x, y, True)
-    plt.show()
