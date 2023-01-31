@@ -16,8 +16,10 @@ if __name__ == '__main__':
     yTrain = splitData[2]
     yTest = splitData[3]
 
-    knn = KNeighborsClassifier(n_neighbors=120, weights='uniform')
+    #knn = KNeighborsClassifier(n_neighbors=100, weights='uniform')
+    knn = KNeighborsClassifier(n_neighbors=100, weights='distance')
     knn.fit(xTrain, yTrain)
+
 
     yPrediction = knn.predict(xTest)
 
