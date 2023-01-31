@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.neighbors import KNeighborsClassifier
 
 
@@ -27,6 +27,11 @@ if __name__ == '__main__':
     confusionMatrix = confusion_matrix(yTest, yPrediction)
 
     print(confusionMatrix)
+
+    cm_display = ConfusionMatrixDisplay(confusion_matrix=confusionMatrix, display_labels=[0, 1, 2])
+
+    cm_display.plot()
+    plt.show()
 
 
     #conf_mat.plot()
