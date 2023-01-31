@@ -15,8 +15,12 @@ from sklearn.neighbors import KNeighborsClassifier
 
 if __name__ == '__main__':
     iris = load_iris()
-    xTrain, xTest, yTrain, yTest = train_test_split(iris.data, iris.target, random_state=0)
-    #xTrain, xTest, yTrain, yTest = train_test_split(iris.data, iris.target)
+
+    splitData = train_test_split(iris.data, iris.target, test_size=0.25, train_size=0.75, random_state=0, shuffle=True, stratify=iris.target)
+    xTrain = splitData[0]
+    xTest = splitData[1]
+    yTrain = splitData[2]
+    yTest = splitData[3]
 
 
     knn = KNeighborsClassifier(n_neighbors=5, weights='uniform')
