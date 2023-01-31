@@ -7,25 +7,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.neighbors import KNeighborsClassifier
 
-
-
-
-
-
-
 if __name__ == '__main__':
     iris = load_iris()
 
-    splitData = train_test_split(iris.data, iris.target, test_size=0.20, train_size=0.8, random_state=0, shuffle=True, stratify=iris.target)
+    splitData = train_test_split(iris.data, iris.target, test_size=0.25, train_size=0.75, random_state=0, shuffle=True, stratify=iris.target)
     xTrain = splitData[0]
     xTest = splitData[1]
     yTrain = splitData[2]
     yTest = splitData[3]
 
-
-    knn = KNeighborsClassifier(n_neighbors=10, weights='uniform')
+    knn = KNeighborsClassifier(n_neighbors=120, weights='uniform')
     knn.fit(xTrain, yTrain)
-
 
     yPrediction = knn.predict(xTest)
 
@@ -37,3 +29,5 @@ if __name__ == '__main__':
 
     cm_display.plot()
     plt.show()
+
+

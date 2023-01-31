@@ -12,7 +12,7 @@ from sklearn.neighbors import KNeighborsClassifier
 if __name__ == '__main__':
     iris = load_iris()
 
-    splitData = train_test_split(iris.data, iris.target, test_size=0.25, train_size=0.75, random_state=0, shuffle=True,
+    splitData = train_test_split(iris.data, iris.target, test_size=0.5, train_size=0.5, random_state=0, shuffle=True,
                                  stratify=iris.target)
     xTrain = splitData[0]
     xTest = splitData[1]
@@ -32,17 +32,3 @@ if __name__ == '__main__':
 
     cm_display.plot()
     plt.show()
-
-
-    #conf_mat.plot()
-    #plt.show()
-
-
-    #actual = np.random.binomial(1, 0.9, size=1000)
-    #predicted = np.random.binomial(1, 0.9, size=1000)
-    #confusion_matrix = metrics.confusion_matrix(actual, predicted)
-
-    #cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix, display_labels=[False, True])
-
-    #cm_display.plot()
-    #plt.show()
