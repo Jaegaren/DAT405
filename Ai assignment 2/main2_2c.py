@@ -8,6 +8,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 
+global iris
+
 
 def testAndTrainVariables():
     iris = load_iris()
@@ -20,7 +22,7 @@ def testAndTrainVariables():
     return xTrain, xTest, yTrain, yTest
 
 
-def getLogisticRegressionMatrix(xTrain, xTest, yTrain, yTest):
+def get_logistic_regression_matrix(xTrain, xTest, yTrain, yTest):
     LR = LogisticRegression()
     LR.fit(xTrain, yTrain)
 
@@ -40,7 +42,7 @@ def get_knn_uniform_matrix(xTrain, xTest, yTrain, yTest):
 
 
 def get_knn_distance_matrix(xTrain, xTest, yTrain, yTest):
-    knnDistance = KNeighborsClassifier(n_neighbors=3, weights='uniform')
+    knnDistance = KNeighborsClassifier(n_neighbors=3, weights='distance')
     knnDistance.fit(xTrain, yTrain)
     yPrediction = knnDistance.predict(xTest)
     knnDistanceMatrix = confusion_matrix(yTest, yPrediction)
@@ -50,7 +52,7 @@ def get_knn_distance_matrix(xTrain, xTest, yTrain, yTest):
 if __name__ == '__main__':
     xTrain, xTest, yTrain, yTest = testAndTrainVariables()
 
-    print(getLogisticRegressionMatrix(xTrain, xTest, yTrain, yTest))
+    print(get_logistic_regression_matrix(xTrain, xTest, yTrain, yTest))
 
     print(get_knn_uniform_matrix(xTrain, xTest, yTrain, yTest))
 
