@@ -45,8 +45,8 @@ if __name__ == '__main__':
     x = correct_Life_Table.merge(correct_GDP_table, on="Entity")["Life expectancy at birth (historical)"]
     y = correct_GDP_table.merge(correct_Life_Table, on="Entity")["GDP per capita (constant 2015 US$)"]
     countryIndex = correct_Life_Table.merge(correct_GDP_table, on="Entity")["Entity"]
-    scatterPlotCountriesWithHighLivingExp()
-    #plt.yscale("log")
+    scatterPlot()
+    plt.yscale("log")
     plt.xlabel('Life Expectancy')
     plt.ylabel('GDP per capita')
     print(countryIndex)
