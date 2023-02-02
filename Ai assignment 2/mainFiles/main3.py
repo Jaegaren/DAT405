@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.datasets import load_iris
 
 def readHouseTable():
-    df = pd.read_csv('data2/data_assignment2.csv')
+    df = pd.read_csv('../data2/data_assignment2.csv')
     return df
 
 if __name__ == '__main__':

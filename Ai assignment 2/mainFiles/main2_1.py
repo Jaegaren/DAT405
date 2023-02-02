@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 
 def readHouseTable():
-    df = pd.read_csv('data2/data_assignment2.csv')
+    df = pd.read_csv('../data2/data_assignment2.csv')
     return df
 
 
