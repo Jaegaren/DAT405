@@ -34,9 +34,11 @@ def kNearestNeighbour():
 def returnTrainingData():
     X = load_iris().data
     y = load_iris().target
+    print(X)
+    print(y)
     return train_test_split(X, y, random_state=0)
 
 
 
 if __name__ == '__main__':
-    kNearestNeighbour()
+    returnTrainingData()
