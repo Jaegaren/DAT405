@@ -41,8 +41,8 @@ def elbow_method(df):
 
     #Plotting the elbow graph
     plt.plot(range(1, 11), WCSS)
-    plt.title('The Elbow Method for Determining the Optimal Number of Clusters')
-    plt.xlabel('Number of Clusters')
+    plt.title('The elbow method')
+    plt.xlabel('Number of clusters')
     plt.ylabel('Within-Cluster Sum of Squares (WCSS)')
     plt.show()
 
