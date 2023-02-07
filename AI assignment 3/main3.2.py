@@ -72,10 +72,6 @@ if __name__ == '__main__':
     print(kmeans.cluster_centers_)
     print(kmeans.labels_)
 
-    plt.scatter(x[:, 0], x[:, -1])
-
-    plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], c='red', marker='x')
-
     plt.title('Data points and cluster centroids')
     plt.show()
 
