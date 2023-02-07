@@ -54,8 +54,8 @@ if __name__ == '__main__':
 
     plt.xlabel("Living Area")
     plt.ylabel("Selling Price")
-    plotResidualGraph(houseTable, "Living_area", "Selling_price")
+    # plotResidualGraph(houseTable, "Living_area", "Selling_price")
     # annotateHousesToPandaIndex(houseIndex, x, y)
-    # plt.scatter(x, y)
-    # calculateAndPlotLineRegression(x, y, True)
+    plt.scatter(x, y)
+    calculateAndPlotLineRegression(x, y, True)
     plt.show()
