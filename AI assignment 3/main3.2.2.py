@@ -2,6 +2,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import numpy as np
 
 def readData():
     df = pd.read_csv('data3/data_assignment3.csv', usecols=['phi', 'psi'])
@@ -28,14 +29,14 @@ def regularScatterPLot(x_values, y_values):
     plt.scatter(x_values, y_values, marker="o", s=1)
 
 
-def elbow_method(df):
+def elbowMethod(data):
     #Creating empty list to store Within-Cluster Sum of Squares (WCSS) values
     WCSS = []
 
     #Creating for loop that runs kmeans with different numbers of clusters 1-11
     for i in range(1, 11):
         kmeans = KMeans(n_clusters=i, init='k-means++')
-        kmeans.fit(df)
+        kmeans.fit(data)
         #Appending the inertia value to the WCSS list
         WCSS.append(kmeans.inertia_)
 
