@@ -12,8 +12,28 @@ def readData():
     df = pd.read_csv('data3/data_assignment3.csv')
     return df
 
+
+def normalizeData(table):
+    table[['nPosition', 'Nphi', 'Npsi']] = StandardScaler().fit_transform(
+        table[['position', 'phi', 'psi']])
+    return table
+
+
+def create2DHistogram(x_values, y_values):
+    plt.hist2d(x_values, y_values, bins=350, alpha=1, cmap='plasma')
+
+
 def createPandaXYValues(table, colum1, colum2):
     return table[colum1], table[colum2]
+
+
+def initPlot():
+    plt.xlim(-180, 180)
+    plt.ylim(-180, 180)
+    plt.ylabel("Psi")
+    plt.xlabel("Phi")
+    plt.show()
+
 
 def regularScatterPLot(x_values, y_values):
     plt.scatter(x_values, y_values, marker="o", s=1)
@@ -21,6 +41,13 @@ def regularScatterPLot(x_values, y_values):
 
 if __name__ == '__main__':
     x, y = createPandaXYValues(readData(), "phi", "psi")
+    # print(readData())
+    # print(readData().describe())
+    # print(normalizeData(readData()))
+    create2DHistogram(x, y)
+    # regularScatterPLot(x, y)
+    initPlot()
+
     x, y = make_blobs(n_samples=10, centers=3, cluster_std=0.60, random_state=0)
     plt.scatter(x[:, 0], x[:, 1])
 
@@ -31,15 +58,8 @@ if __name__ == '__main__':
         kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
         kmeans.fit(x)
         WCSS.append(kmeans.inertia_)
-        # Calculate the first point where the rate of change of WCSS begins to decrease.
-        if len(WCSS) >= 2:
-            rate_of_change = (WCSS[i - 1] - WCSS[i - 2]) / WCSS[i - 2]
-            if rate_of_change < 0:
-                best_k = i - 1
-                print(best_k)
-                break
 
-    plt.plot(range(1, len(WCSS) + 1), WCSS)
+    plt.plot(range(1, 11), WCSS)
     plt.title('Elbow Method')
     plt.xlabel('Number of clusters')
     plt.ylabel('WCSS')
@@ -47,10 +67,8 @@ if __name__ == '__main__':
     # Find the optimal k value
     k_opt = np.argmin(np.diff(WCSS)) + 1
     print(k_opt)
-    print("look up")
 
     kmeans = KMeans(n_clusters=3, random_state=0).fit(x)
-    #kmeans = KMeans(n_clusters=3, init='k-means++', n_init=10, random_state=0).fit(x)
     print(kmeans.cluster_centers_)
     print(kmeans.labels_)
 
