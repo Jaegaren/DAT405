@@ -1,38 +1,39 @@
-import os
 
-def setUp():
-    # Create train and test directories
-    os.mkdir("train")
-    os.mkdir("test")
-
-    # Create ham and spam directories within train and test
-    os.mkdir("train/ham")
-    os.mkdir("train/spam")
-    os.mkdir("test/ham")
-    os.mkdir("test/spam")
+import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 
 if __name__ == '__main__':
 
-    # Get file list from easy_ham
-    filenames_ham = os.listdir("easy_ham")
+    # Loading data
+    df_ham = pd.read_csv('easy_ham.csv')
+    df_spam = pd.read_csv('spam.csv')
 
-    # Separate files into train and test
-    for i in range(len(filenames_ham)):
-        if i % 4 == 0:
-            os.rename("easy_ham/" + filenames_ham[i],
-                      "test/ham/" + filenames_ham[i])
-        else:
-            os.rename("easy_ham/" + filenames_ham[i],
-                      "train/ham/" + filenames_ham[i])
+    # Split ham and spam data into train and test datasets
+    ham_train, ham_test = np.split(df_ham, [int(.75 * len(df_ham))])
+    spam_train, spam_test = np.split(df_spam, [int(.75 * len(df_spam))])
 
-    # Get file list from easy_spam
-    filenames_spam = os.listdir("easy_spam")
+    vectorizer = CountVectorizer()
+    X_train_ham = vectorizer.fit_transform(ham_train['message'])
+    X_train_spam = vectorizer.fit_transform(spam_train['message'])
+    X_test_ham = vectorizer.transform(ham_test['message'])
+    X_test_spam = vectorizer.transform(spam_test['message'])
 
-    # Separate files into train and test
-    for i in range(len(filenames_spam)):
-        if i % 4 == 0:
-            os.rename("easy_spam/" + filenames_spam[i],
-                      "test/spam/" + filenames_spam[i])
-        else:
-            os.rename("easy_spam/" + filenames_spam[i],
-                      "train/spam/" + filenames_spam[i])
+    mnb = MultinomialNB()
+    bnb = BernoulliNB()
+    mnb.fit(X_train_ham, ham_train['target'])
+    bnb.fit(X_train_spam, spam_train['target'])
+
+    mnb_pred_ham = mnb.predict(X_test_ham)
+    bnb_pred_spam = bnb.predict(X_test_spam)
+
+    mnb_true_positive = np.sum(mnb_pred_ham == ham_test['target'])
+    mnb_false_negative = np.sum(mnb_pred_ham != ham_test['target'])
+    bnb_true_positive = np.sum(bnb_pred_spam == spam_test['target'])
+    bnb_false_negative = np.sum(bnb_pred_spam != spam_test['target'])
+
+    print("Multinomial Naive Bayes - True Positive: {0}, False Negative: {1}".format(mnb_true_positive,
+                                                                                     mnb_false_negative))
+    print(
+        "Bernoulli Naive Bayes - True Positive: {0}, False Negative: {1}".format(bnb_true_positive, bnb_false_negative))
