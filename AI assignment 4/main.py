@@ -1,18 +1,18 @@
-import os
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB, BernoulliNB
+import glob
 
 if __name__ == '__main__':
-    # Defining path to the data
-    data_path = os.path.join('data', 'easy_ham', 'easy_ham.csv')
 
     # Loading the data
-    df_ham = pd.read_csv('easy_ham/easy_ham.csv')
-    df_spam = pd.read_csv('spam/spam.csv')
+    df_ham = pd.read_csv('/Users/jacobwesterberg/PycharmProjects/DAT405/AI assignment 4/easy_ham')
+    df_spam = pd.read_csv('/Users/jacobwesterberg/PycharmProjects/DAT405/AI assignment 4/spam')
 
     # Split ham and spam data into train and test datasets
+    np.random.shuffle(df_ham)
+    np.random.shuffle(df_spam)
     ham_train, ham_test = np.split(df_ham, [int(.75 * len(df_ham))])
     spam_train, spam_test = np.split(df_spam, [int(.75 * len(df_spam))])
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     bnb_true_positive = np.sum(bnb_pred_spam == spam_test['target'])
     bnb_false_negative = np.sum(bnb_pred_spam != spam_test['target'])
 
-    print("Multinomial Naive Bayes - True Positive: {0}, False Negative: {1}".format(mnb_true_positive,
-                                                                                     mnb_false_negative))
-    print(
-        "Bernoulli Naive Bayes - True Positive: {0}, False Negative: {1}".format(bnb_true_positive, bnb_false_negative))
+    #print("Multinomial Naive Bayes - True Positive: {0}, False Negative: {1}".format(mnb_true_positive,
+    #                                                                                 mnb_false_negative))
+    #print(
+    #    "Bernoulli Naive Bayes - True Positive: {0}, False Negative: {1}".format(bnb_true_positive, bnb_false_negative))
