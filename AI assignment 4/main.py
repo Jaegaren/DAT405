@@ -1,14 +1,16 @@
-
+import os
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 
 if __name__ == '__main__':
+    # Defining path to the data
+    data_path = os.path.join('data', 'easy_ham', 'easy_ham.csv')
 
-    # Loading data
-    df_ham = pd.read_csv('easy_ham.csv')
-    df_spam = pd.read_csv('spam.csv')
+    # Loading the data
+    df_ham = pd.read_csv('easy_ham/easy_ham.csv')
+    df_spam = pd.read_csv('spam/spam.csv')
 
     # Split ham and spam data into train and test datasets
     ham_train, ham_test = np.split(df_ham, [int(.75 * len(df_ham))])
