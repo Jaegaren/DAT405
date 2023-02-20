@@ -1,9 +1,6 @@
 # Value Iteration Algorithm
 import numpy as np
 
-# define the reward matrix
-R = np.array([[0, 0, 0], [0, 10, 0], [0, 0, 0]])
-
 # define the discount factor
 gamma = 0.9
 
@@ -12,6 +9,10 @@ length = 3
 
 # width of the matrix
 width = 3
+
+# define the reward matrix
+R = np.zeros((length, width))
+R[1, 1] = 10
 
 # define the initial value function
 V = np.zeros((length, width))
