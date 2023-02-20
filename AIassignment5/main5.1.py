@@ -2,13 +2,13 @@
 import numpy as np
 
 # define the reward matrix
-R = np.array([[0,0,0], [0,10,0], [0,0,0]])
+R = np.array([[0, 0, 0], [0, 10, 0], [0, 0, 0]])
 
 # define the discount factor
 gamma = 0.9
 
 # define the initial value function
-V = np.zeros((3,3))
+V = np.zeros((3, 3))
 
 # define the probability
 p = 0.8
@@ -26,12 +26,16 @@ def value_iteration():
                 # calculate the expected value of each action
                 action_val = []
                 if i > 0:
+                    # north
                     action_val.append(p * (R[i-1, j] + gamma * V_old[i-1, j]))
                 if i < 2:
+                    # south
                     action_val.append(p * (R[i+1, j] + gamma * V_old[i+1, j]))
                 if j > 0:
+                    # west
                     action_val.append(p * (R[i, j-1] + gamma * V_old[i, j-1]))
                 if j < 2:
+                    # east
                     action_val.append(p * (R[i, j+1] + gamma * V_old[i, j+1]))
                 action_val.append(p * (R[i, j] + gamma * V_old[i, j]))
                 # find the best action
@@ -45,12 +49,16 @@ def value_iteration():
         for j in range(3):
             action_val = []
             if i > 0:
+                #north
                 action_val.append(p * (R[i-1, j] + gamma * V[i-1, j]))
             if i < 2:
+                #south
                 action_val.append(p * (R[i+1, j] + gamma * V[i+1, j]))
             if j > 0:
+                #west
                 action_val.append(p * (R[i, j-1] + gamma * V[i, j-1]))
             if j < 2:
+                #east
                 action_val.append(p * (R[i, j+1] + gamma * V[i, j+1]))
             action_val.append(p * (R[i, j] + gamma * V[i, j]))
             # find the best action
@@ -61,6 +69,7 @@ def value_iteration():
     # print the optimal policy
     print("Optimal policy:")
     print(pi)
+    print("Gustav Gille gillar strypsex")
 
 if __name__ == '__main__':
     value_iteration()
