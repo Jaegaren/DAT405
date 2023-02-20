@@ -2,14 +2,13 @@
 import numpy as np
 
 # define the reward matrix
-R = np.array([[0, 0, 0], [0, 10, 0], [0, 0, 0]])
+R = np.array([[0,0,0], [0,10,0], [0,0,0]])
 
 # define the discount factor
 gamma = 0.9
 
 # define the initial value function
-V = np.zeros((3, 3))
-V[0, 0] = 5
+V = np.zeros((3,3))
 
 # define the probability
 p = 0.8
@@ -27,43 +26,21 @@ def value_iteration():
                 # calculate the expected value of each action
                 action_val = []
                 if i > 0:
-                    # north
                     action_val.append(p * (R[i-1, j] + gamma * V_old[i-1, j]))
                 if i < 2:
-                    # south
                     action_val.append(p * (R[i+1, j] + gamma * V_old[i+1, j]))
                 if j > 0:
-                    # west
                     action_val.append(p * (R[i, j-1] + gamma * V_old[i, j-1]))
                 if j < 2:
-                    # east
                     action_val.append(p * (R[i, j+1] + gamma * V_old[i, j+1]))
                 action_val.append(p * (R[i, j] + gamma * V_old[i, j]))
                 # find the best action
                 V[i, j] = max(action_val)
+                # find the optimal policy
+                pi[i, j] = np.argmax(action_val)
         # check if the values are converging
         if np.sum(np.abs(V - V_old)) <= epsilon:
             break
-    # find the optimal policy
-    pi = np.zeros((3, 3))
-    for i in range(3):
-        for j in range(3):
-            action_val = []
-            if i > 0:
-                # checks if north is possible
-                action_val.append(p * (R[i-1, j] + gamma * V[i-1, j]))
-            if i < 2:
-                # checks if south is possible
-                action_val.append(p * (R[i+1, j] + gamma * V[i+1, j]))
-            if j > 0:
-                # checks if west is possible
-                action_val.append(p * (R[i, j-1] + gamma * V[i, j-1]))
-            if j < 2:
-                # checks if east is possible
-                action_val.append(p * (R[i, j+1] + gamma * V[i, j+1]))
-            action_val.append(p * (R[i, j] + gamma * V[i, j]))
-            # find the best action
-            pi[i, j] = np.argmax(action_val)
     # print the optimal value function
     print("Optimal value function:")
     print(V)
@@ -71,5 +48,5 @@ def value_iteration():
     print("Optimal policy:")
     print(pi)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     value_iteration()
