@@ -69,7 +69,6 @@ def value_iteration():
     # print the optimal policy
     print("Optimal policy:")
     print(pi)
-    print("Gustav Gille gillar strypsex")
 
 if __name__ == '__main__':
     value_iteration()
