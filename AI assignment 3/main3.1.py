@@ -35,13 +35,7 @@ def initPlot():
 def regularScatterPLot(x_values, y_values):
     plt.scatter(x_values, y_values, marker="o", s=1)
 
-    if __name__ == '__main__':
-        x, y = createPandaXYValues(readData(), "phi", "psi")
+if __name__ == '__main__':
+    x, y = createPandaXYValues(readData(), "phi", "psi")
 
-    # print(readData())
-    # print(readData().describe())
-    # print(normalizeData(readData()))
-    create2DHistogram(x, y)
-    # regularScatterPLot(x, y)
-    initPlot()
-
+    print(readData())
